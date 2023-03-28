@@ -47,6 +47,7 @@ try {
     var logger = services.GetRequiredService<ILogger<Program>>();
     logger.LogError(ex, "An error ocurred during migrations");
 
-}    
+}
+
 
 app.Run();
