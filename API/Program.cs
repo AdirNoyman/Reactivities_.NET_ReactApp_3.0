@@ -15,6 +15,16 @@ builder.Services.AddDbContext<DataContext>(opt =>
 }
 );
 
+// Add service support for CORS requests as long as they come from our client
+builder.Services.AddCors(opt =>
+ {
+    opt.AddPolicy("CorsPolicy", policy => 
+    {
+        // Allow CORS requests with any method and any header as long as the request is coming from our client
+        policy.AllowAnyMethod().AllowAnyHeader().WithOrigins("http://localhost:3000");
+    }
+    );
+ });
 var app = builder.Build();
 
 // Configure the HTTP request pipeline. This is Middleware
@@ -23,6 +33,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+
+// Add the CORS policy middleware
+app.UseCors("CorsPolicy");
 
 app.UseAuthorization();
 
