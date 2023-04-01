@@ -1,3 +1,5 @@
+using Application.Activities;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 
@@ -25,6 +27,9 @@ builder.Services.AddCors(opt =>
     }
     );
  });
+
+builder.Services.AddMediatR(typeof(List.Handler));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline. This is Middleware
